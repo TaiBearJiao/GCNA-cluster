@@ -1,0 +1,66 @@
+#### GCNA-cluster####
+#
+#step1: Construction of Gene Co-expression Network 
+#Construct a gene co-expression network for each cancer patient based on the processed gene expression matrix
+#
+dat = read.table('min_max_finaldata.txt',header = F)
+dat = t(dat)
+dat = dat[2:nrow(dat),2:ncol(dat)] 
+dat = apply(dat,2,as.numeric)
+for(p in 1:nrow(dat)){           
+  matrix.p<-matrix(data = 0,nrow = ncol(dat), ncol = ncol(dat))    
+  for(i in 1:ncol(dat)){ 
+    for(j in 1:ncol(dat)){
+      matrix.p[i,j] = (dat[p,i]+dat[p,j])/2 
+    }
+  }
+  write.table(matrix.p,file = paste("mean_mRNA",p,".txt"), sep = "\t", quote =TRUE)
+}
+#
+#step2: Network Alignment
+#The constructed gene co-expression networks were paired for network alignment
+#
+threshold = [0.293775,0.211336,0.18187,0.161109,0.143606,0.124354,0.051176];
+matCell = cell(1 , 178);
+for i = 1 : 178
+    name = sprintf('%s%d%s','mean_mRNA ',i,' .txt'); 
+    mat = importdata(name);
+    mat = cat(1,mat.data); 
+    matCell{1,i} = mat;
+end 
+for i = 1 :7
+    scoreMat = zeros(178); 
+    for p = 1 : 178
+        mat1 = matCell{1,p}; 
+        for q = (p+1) : 178
+            if p < q   
+                mat2 = matCell{1,q}; 
+                mat3 = mat1-mat2;
+                mat3(abs(mat3) > threshold(1,i)) = 1;
+                mat3(abs(mat3) < threshold(1,i)) = 0;
+                mat4 = ones(size(mat3)) - mat3; 
+               
+                [L,num] = bwlabel(mat4,8); 
+                S = regionprops(L, 'Area'); 
+                areas = [S.Area];
+                [m,ind] = max(areas);
+                scoreMat(p,q) = m;
+            end
+        end
+    end  
+    scoreMat = scoreMat + scoreMat';
+    filename1 = ['Score' num2str(i) '_8domianMAX.txt'];
+    dlmwrite(filename1, scoreMat, 'delimiter','\t'); 
+end
+#
+#step3: Cluster
+#Based on the similarity matrix of patients, patients are clustered into 2 classes using a spectral clustering algorithm
+#
+library("SNFtool")
+Data1 = read.table("Score1__8domianMAX.txt",sep="\t",header=F)
+Data1 = Data1[,1:178]
+Data1 = as.matrix(Data1)
+label = spectralClustering(Data1,2)
+label = t(label)
+write.table(label,"label.txt",sep = ",", quote =TRUE) 
+
