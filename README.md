@@ -1,7 +1,7 @@
 # GCNA-cluster:文章标题
 方法的大致流程
 ## The environment of GCNA-cluster
-Rstudio 
+Rstudio <br>
 Matlab
 ## Usage
 解压啥的
