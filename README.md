@@ -1,8 +1,8 @@
 # GCNA-cluster:文章标题
-首先，GCNA-cluster为每个患者构建一个加权基因共表达网络，并对齐了两名患者的网络，考虑了基因之间的协同作用。定义评分函数来测量网络对齐结果，评分可以指示患者之间的相似性。然后，根据患者的相似性对患者进行聚类。
+First, the GCNA-cluster algorithm constructed a weighted gene co-expression network for each patient.Secondly, network alignment was performed between pairs of gene co-expression networks, and the score of alignment was the similarity between patients. By extrapolating from this, a patient-patient similarity matrix can be obtained. Finally, cluster patients according to their similarity.
 ## The environment of GCNA-cluster
-Rstudio <br>
-Matlab
+Rstudio 4.0.2<br>
+Matlab R2016a
 ## Usage
 解压啥的
 ## Code and data
