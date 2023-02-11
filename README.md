@@ -6,9 +6,9 @@ Matlab R2016a
 ## Code and data
 ### Raw data
 For the cancer data used in the paper, the TCGA database (https://portal.gdc.cancer.gov/) and the GEO database (https://www.ncbi.nlm.nih.gov/geo/, GEO accession: GSE15471 and GSE17891) were used. 
-### 生成基因共表达网络
+### Construction of Gene Co-expression Network
 The `gene expression.txt` file in the `TCGA_Network` (or GEO_Network) folder is used as input and `onePatienNet.R` is run to generate the patients' gene co-expression network.
-### 网络比对
+### Network Alignment
 The `geneCo-expressionNetwork_TCGA.zip` (or geneCo-expressionNetwork_GEO.zip) file in the `TCGA_Network` (or GEO_Network) folder can be extracted to obtain the generated gene co-expression network, which is the result of the previous step. Using these gene co-expression networks as input, run `network_alignment.m` to obtain the patient-patient similarity matrix.
-### 聚类
+### Cluster
 Using the `similarityMatrix.txt` file in the `TCGA_Network` (or GEO_Network) folder as input, which is the result of the previous network alignment step, run the `spectralCluster.R` file to cluster the patients.
