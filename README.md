@@ -12,3 +12,5 @@ The `gene expression.txt` file in the `TCGA_Network` (or GEO_Network) folder is 
 The `geneCo-expressionNetwork_TCGA.zip` (or geneCo-expressionNetwork_GEO.zip) file in the `TCGA_Network` (or GEO_Network) folder can be extracted to obtain the generated gene co-expression network, which is the result of the previous step. Using these gene co-expression networks as input, run `network_alignment.m` to obtain the patient-patient similarity matrix.
 ### Cluster
 Using the `similarityMatrix.txt` file in the `TCGA_Network` (or GEO_Network) folder as input, which is the result of the previous network alignment step, run the `spectralCluster.R` file to cluster the patients.
+### Baseline method
+The `Baseline methods` folder contains all the baseline methods compared to GCNA-cluster in the paper, the Consensus clustering and NMF clustering code in the `consensus and nmf.R` file, and the `baseline methods.py` file contains the kmeans, GMM, Birch, and GCNA-Agglomerative code.
